@@ -1,8 +1,8 @@
-import 'package:cubit_practice/pages/detail_page.dart';
-import 'package:cubit_practice/pages/home_page.dart';
-import 'package:cubit_practice/pages/nav_pages/main_page.dart';
+import 'package:cubit_practice/cubit/app_cubit_logics.dart';
+import 'package:cubit_practice/cubit/app_cubits.dart';
+import 'package:cubit_practice/services/data_services.dart';
 import 'package:flutter/material.dart';
-import 'package:cubit_practice/pages/welcome_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,10 +18,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
-      home: DetailPage(),
+      home: BlocProvider<AppCubits>(
+        create: (context) => AppCubits(
+          data: DataServices(),
+        ),
+        child: AppCubitLogics(),
+      ),
     );
   }
 }

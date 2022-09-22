@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:cubit_practice/misc/colors.dart';
 import 'package:cubit_practice/widgets/add_button.dart';
 import 'package:cubit_practice/widgets/app_large_text.dart';
 import 'package:cubit_practice/widgets/app_text.dart';
+import 'package:cubit_practice/widgets/responsive_button.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatefulWidget {
@@ -52,12 +53,12 @@ class _DetailPageState extends State<DetailPage> {
                 ],
               ),
             ),
-            Positioned(
-              top: 320,
+            SingleChildScrollView(
               child: Container(
+                margin: EdgeInsets.only(top: 280),
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
                 width: MediaQuery.of(context).size.width,
-                height: 500,
+                height: 480,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -141,13 +142,13 @@ class _DetailPageState extends State<DetailPage> {
                       color: AppColors.textColor2,
                       size: 15,
                     ),
-                    SizedBox( 
+                    SizedBox(
                       height: 10,
                     ),
                     Wrap(
                       children: List.generate(5, (index) {
                         return InkWell(
-                          onTap: (){
+                          onTap: () {
                             setState(() {
                               selectedIndex = index;
                             });
@@ -156,10 +157,16 @@ class _DetailPageState extends State<DetailPage> {
                             margin: const EdgeInsets.only(right: 10),
                             child: AddButton(
                               size: 50,
-                              color: selectedIndex == index ? Colors.white : Colors.black,
-                              backgroundColor: selectedIndex == index ? Colors.black : AppColors.buttonBackground,
-                              borderColor: selectedIndex == index ? Colors.black : AppColors.buttonBackground,
-                              text: (index+1).toString(),
+                              color: selectedIndex == index
+                                  ? Colors.white
+                                  : Colors.black,
+                              backgroundColor: selectedIndex == index
+                                  ? Colors.black
+                                  : AppColors.buttonBackground,
+                              borderColor: selectedIndex == index
+                                  ? Colors.black
+                                  : AppColors.buttonBackground,
+                              text: (index + 1).toString(),
                             ),
                           ),
                         );
@@ -168,11 +175,47 @@ class _DetailPageState extends State<DetailPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    AppLargeText(text: "Description", color: Colors.black.withOpacity(0.8),)
+                    AppLargeText(
+                      text: "Description",
+                      color: Colors.black.withOpacity(0.8),
+                      size: 20,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    AppText(
+                      text:
+                          "You must go for a travel. Traveling helps get rid of pressure. Go to the mountains to see the nature.",
+                      color: AppColors.mainTextColor,
+                      size: 15,
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
+            Positioned(
+              left: 20,
+              bottom: 20,
+              right: 20,
+              child: Row(
+                children: [
+                  AddButton(
+                    size: 60,
+                    color: AppColors.textColor1,
+                    backgroundColor: Colors.white,
+                    borderColor: AppColors.textColor2,
+                    isIcon: true,
+                    icon: Icons.favorite_border,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  ResponsiveButton(
+                    isResponsive: true,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

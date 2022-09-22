@@ -1,10 +1,13 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, sized_box_for_whitespace
+// ignore_for_file: prefer_interpolation_to_compose_strings, sized_box_for_whitespace, avoid_unnecessary_containers
 
+import 'package:bloc/bloc.dart';
+import 'package:cubit_practice/cubit/app_cubits.dart';
 import 'package:cubit_practice/misc/colors.dart';
 import 'package:cubit_practice/widgets/app_large_text.dart';
 import 'package:cubit_practice/widgets/app_text.dart';
 import 'package:cubit_practice/widgets/responsive_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WelcomePage extends StatefulWidget {
   WelcomePage({Key? key}) : super(key: key);
@@ -16,7 +19,6 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
-
     List images = [
       'welcome-one.png',
       'welcome-two.png',
@@ -33,7 +35,7 @@ class _WelcomePageState extends State<WelcomePage> {
             height: double.maxFinite,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("img/"+images[index]),
+                image: AssetImage("img/" + images[index]),
                 fit: BoxFit.cover,
               ),
             ),
@@ -47,11 +49,14 @@ class _WelcomePageState extends State<WelcomePage> {
                     children: [
                       AppLargeText(text: "Trips"),
                       AppText(text: "Mountain"),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Container(
                         width: 250,
                         child: AppText(
-                          text: "Mountain hikes give you an incredible sense of freedom along with your endurance test",
+                          text:
+                              "Mountain hikes give you an incredible sense of freedom along with your endurance test",
                           size: 14,
                           color: AppColors.textColor2,
                         ),
@@ -59,7 +64,21 @@ class _WelcomePageState extends State<WelcomePage> {
                       const SizedBox(
                         height: 40,
                       ),
-                      ResponsiveButton(width: 120,),
+                      GestureDetector(
+                        onTap: () {
+                          BlocProvider.of<AppCubits>(context).getData();
+                        },
+                        child: Container(
+                          width: 200,
+                          child: Row(
+                            children: [
+                              ResponsiveButton(
+                                width: 120,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Column(
@@ -70,7 +89,9 @@ class _WelcomePageState extends State<WelcomePage> {
                         height: index == indexDots ? 25 : 8,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: index == indexDots ? AppColors.mainColor : AppColors.mainColor.withOpacity(0.3),
+                          color: index == indexDots
+                              ? AppColors.mainColor
+                              : AppColors.mainColor.withOpacity(0.3),
                         ),
                       );
                     }),
